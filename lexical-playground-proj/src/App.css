@@ -1,0 +1,31 @@
+.App {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 20px 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.App__header {
+  text-align: center;
+}
+
+.App__title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 6px;
+}
+
+.App__subtitle {
+  font-size: 0.9rem;
+  color: #6b7280;
+  margin: 0;
+}
+
+.App__main {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}

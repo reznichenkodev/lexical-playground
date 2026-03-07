@@ -1,0 +1,135 @@
+.ButtonNode__wrapper {
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+  position: relative;
+  gap: 4px;
+}
+
+/* ---- Config control button ---- */
+.ButtonNode__configBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border-radius: 5px;
+  border: 1px solid #d1d5db;
+  background: #fff;
+  color: #6b7280;
+  font-size: 13px;
+  cursor: pointer;
+  opacity: 0;
+  transform: scale(0.85);
+  transition: opacity 0.15s, transform 0.15s, background 0.12s, color 0.12s;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.ButtonNode__wrapper:hover .ButtonNode__configBtn,
+.ButtonNode__configBtn:focus-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.ButtonNode__configBtn:hover {
+  background: #6366f1;
+  border-color: #6366f1;
+  color: #fff;
+}
+
+.ButtonNode__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  border-radius: 6px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  text-decoration: none;
+  transition: background 0.15s, border-color 0.15s, box-shadow 0.15s, opacity 0.15s;
+  outline: none;
+  line-height: 1;
+  white-space: nowrap;
+  font-family: inherit;
+  user-select: none;
+}
+
+/* ---- Sizes ---- */
+.ButtonNode__button--sm {
+  font-size: 0.78rem;
+  padding: 4px 10px;
+  gap: 4px;
+}
+.ButtonNode__button--md {
+  font-size: 0.9rem;
+  padding: 7px 16px;
+  gap: 6px;
+}
+.ButtonNode__button--lg {
+  font-size: 1rem;
+  padding: 10px 22px;
+  gap: 8px;
+}
+
+/* ---- Variants ---- */
+.ButtonNode__button--primary {
+  background: #6366f1;
+  color: #fff;
+  border-color: #6366f1;
+}
+.ButtonNode__button--primary:hover {
+  background: #4f46e5;
+  border-color: #4f46e5;
+}
+
+.ButtonNode__button--secondary {
+  background: #fff;
+  color: #374151;
+  border-color: #d1d5db;
+}
+.ButtonNode__button--secondary:hover {
+  background: #f9fafb;
+  border-color: #9ca3af;
+}
+
+.ButtonNode__button--danger {
+  background: #ef4444;
+  color: #fff;
+  border-color: #ef4444;
+}
+.ButtonNode__button--danger:hover {
+  background: #dc2626;
+  border-color: #dc2626;
+}
+
+.ButtonNode__button--success {
+  background: #22c55e;
+  color: #fff;
+  border-color: #22c55e;
+}
+.ButtonNode__button--success:hover {
+  background: #16a34a;
+  border-color: #16a34a;
+}
+
+.ButtonNode__button--ghost {
+  background: transparent;
+  color: #6366f1;
+  border-color: transparent;
+}
+.ButtonNode__button--ghost:hover {
+  background: rgba(99, 102, 241, 0.08);
+}
+
+/* ---- States ---- */
+.ButtonNode__button--selected {
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.4);
+}
+
+.ButtonNode__button--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}

@@ -1,0 +1,195 @@
+.FloatingButtonConfig__panel {
+  position: absolute;
+  z-index: 1000;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08);
+  width: 280px;
+  opacity: 0;
+  transform: scale(0.96);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  pointer-events: all;
+}
+
+.FloatingButtonConfig__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px 10px;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.FloatingButtonConfig__title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #111827;
+  letter-spacing: 0.01em;
+}
+
+.FloatingButtonConfig__close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #9ca3af;
+  font-size: 1.2rem;
+  line-height: 1;
+  padding: 2px 6px;
+  border-radius: 4px;
+  transition: background 0.1s, color 0.1s;
+}
+.FloatingButtonConfig__close:hover {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.FloatingButtonConfig__body {
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.FloatingButtonConfig__field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.FloatingButtonConfig__field--row {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.FloatingButtonConfig__label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.FloatingButtonConfig__input {
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 0.875rem;
+  color: #111827;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  font-family: inherit;
+  width: 100%;
+  box-sizing: border-box;
+}
+.FloatingButtonConfig__input:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+/* ---- Variant Buttons ---- */
+.FloatingButtonConfig__variantGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.FloatingButtonConfig__variantBtn {
+  padding: 4px 10px;
+  border-radius: 5px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all 0.12s;
+  font-family: inherit;
+  opacity: 0.7;
+}
+.FloatingButtonConfig__variantBtn--active {
+  opacity: 1;
+  border-color: rgba(0,0,0,0.25) !important;
+}
+
+.FloatingButtonConfig__variantBtn--primary {
+  background: #6366f1;
+  color: #fff;
+}
+.FloatingButtonConfig__variantBtn--secondary {
+  background: #fff;
+  color: #374151;
+  border-color: #d1d5db !important;
+}
+.FloatingButtonConfig__variantBtn--danger {
+  background: #ef4444;
+  color: #fff;
+}
+.FloatingButtonConfig__variantBtn--success {
+  background: #22c55e;
+  color: #fff;
+}
+.FloatingButtonConfig__variantBtn--ghost {
+  background: transparent;
+  color: #6366f1;
+  border-color: #6366f1 !important;
+}
+
+/* ---- Size Buttons ---- */
+.FloatingButtonConfig__sizeGroup {
+  display: flex;
+  gap: 5px;
+}
+
+.FloatingButtonConfig__sizeBtn {
+  flex: 1;
+  padding: 5px;
+  border: 1px solid #d1d5db;
+  border-radius: 5px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  background: #fff;
+  color: #6b7280;
+  transition: all 0.12s;
+  font-family: inherit;
+}
+.FloatingButtonConfig__sizeBtn:hover {
+  border-color: #6366f1;
+  color: #6366f1;
+}
+.FloatingButtonConfig__sizeBtn--active {
+  background: #6366f1;
+  border-color: #6366f1;
+  color: #fff;
+}
+
+/* ---- Toggle ---- */
+.FloatingButtonConfig__toggle {
+  width: 40px;
+  height: 22px;
+  background: #d1d5db;
+  border: none;
+  border-radius: 11px;
+  cursor: pointer;
+  padding: 2px;
+  transition: background 0.2s;
+  position: relative;
+  flex-shrink: 0;
+}
+.FloatingButtonConfig__toggle--on {
+  background: #6366f1;
+}
+.FloatingButtonConfig__toggleThumb {
+  display: block;
+  width: 18px;
+  height: 18px;
+  background: #fff;
+  border-radius: 50%;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  transition: left 0.2s;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+.FloatingButtonConfig__toggle--on .FloatingButtonConfig__toggleThumb {
+  left: 20px;
+}

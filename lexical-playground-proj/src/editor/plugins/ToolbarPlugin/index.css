@@ -1,0 +1,87 @@
+.Toolbar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2px;
+  padding: 6px 10px;
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+  border-radius: 10px 10px 0 0;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.Toolbar__btn {
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 5px 8px;
+  font-size: 0.85rem;
+  color: #374151;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 30px;
+  height: 30px;
+  transition: background 0.12s, border-color 0.12s, color 0.12s;
+  font-family: inherit;
+}
+.Toolbar__btn:hover:not(:disabled) {
+  background: #f3f4f6;
+  border-color: #e5e7eb;
+}
+.Toolbar__btn--active {
+  background: #eef2ff;
+  color: #6366f1;
+  border-color: #c7d2fe;
+}
+.Toolbar__btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.Toolbar__divider {
+  width: 1px;
+  height: 22px;
+  background: #e5e7eb;
+  margin: 0 3px;
+  flex-shrink: 0;
+}
+
+.Toolbar__select {
+  height: 30px;
+  padding: 0 8px;
+  border: 1px solid #e5e7eb;
+  border-radius: 5px;
+  font-size: 0.82rem;
+  color: #374151;
+  background: #fff;
+  cursor: pointer;
+  outline: none;
+  font-family: inherit;
+}
+.Toolbar__select:hover {
+  border-color: #d1d5db;
+}
+.Toolbar__select:focus {
+  border-color: #6366f1;
+}
+
+.Toolbar__insertBtn {
+  padding: 5px 12px;
+  background: #6366f1;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  height: 30px;
+  transition: background 0.12s;
+  font-family: inherit;
+}
+.Toolbar__insertBtn:hover {
+  background: #4f46e5;
+}
