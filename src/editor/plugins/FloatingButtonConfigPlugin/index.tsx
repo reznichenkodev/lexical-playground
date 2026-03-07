@@ -139,14 +139,14 @@ function FloatingConfigPanel({
     });
   }, [editor, nodeKey, label, variant, size, href, disabled]);
 
-  // Auto-apply on field change, but skip until node values are loaded
+  // Auto-apply button controls immediately (no focus issues with buttons)
   useEffect(() => {
     if (!hasInitialized.current) {
       hasInitialized.current = true;
       return;
     }
     applyChanges();
-  }, [label, variant, size, href, disabled]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [variant, size, disabled]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div
@@ -176,6 +176,7 @@ function FloatingConfigPanel({
             className='FloatingButtonConfig__input'
             value={label}
             onChange={(e) => setLabel(e.target.value)}
+            onBlur={applyChanges}
             placeholder='Button text...'
           />
         </div>
@@ -231,6 +232,7 @@ function FloatingConfigPanel({
             className='FloatingButtonConfig__input'
             value={href}
             onChange={(e) => setHref(e.target.value)}
+            onBlur={applyChanges}
             placeholder='https://...'
           />
         </div>

@@ -14,7 +14,7 @@
 }
 
 .Editor__contentEditable {
-  min-height: 400px;
+  min-height: 800px;
   padding: 20px 24px;
   outline: none;
   font-size: 0.95rem;
