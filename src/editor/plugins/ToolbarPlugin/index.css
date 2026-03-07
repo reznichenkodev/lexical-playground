@@ -85,3 +85,52 @@
 .Toolbar__insertBtn:hover {
   background: #4f46e5;
 }
+
+/* ---- Table size picker ---- */
+.Toolbar__tablePickerWrapper {
+  position: relative;
+}
+
+.Toolbar__tablePicker {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  z-index: 100;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+.Toolbar__tableGrid {
+  display: grid;
+  grid-template-columns: repeat(8, 18px);
+  gap: 3px;
+}
+
+.Toolbar__tableGridCell {
+  width: 18px;
+  height: 18px;
+  border: 1px solid #e5e7eb;
+  border-radius: 3px;
+  cursor: pointer;
+  background: #f9fafb;
+  transition: background 0.1s, border-color 0.1s;
+}
+
+.Toolbar__tableGridCell--selected {
+  background: #c7d2fe;
+  border-color: #6366f1;
+}
+
+.Toolbar__tableGridCell:hover {
+  border-color: #6366f1;
+}
+
+.Toolbar__tableGridLabel {
+  margin-top: 6px;
+  text-align: center;
+  font-size: 0.75rem;
+  color: #6b7280;
+}

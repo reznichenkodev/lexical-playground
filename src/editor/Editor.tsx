@@ -11,13 +11,16 @@ import { LinkPlugin } from '@lexical/react/LexicalLinkPlugin';
 import { ListPlugin } from '@lexical/react/LexicalListPlugin';
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
 import { TabIndentationPlugin } from '@lexical/react/LexicalTabIndentationPlugin';
+import { TablePlugin } from '@lexical/react/LexicalTablePlugin';
 import { useCallback, useEffect, useState } from 'react';
 
 import PlaygroundNodes from './nodes/PlaygroundNodes';
 import EditorTheme from './themes/EditorTheme';
+import CollapsiblePlugin from './plugins/CollapsiblePlugin';
 import FloatingButtonConfigPlugin from './plugins/FloatingButtonConfigPlugin';
 import ToolbarPlugin from './plugins/ToolbarPlugin';
 
+import './nodes/CollapsibleNode/index.css';
 import './themes/EditorTheme.css';
 import './Editor.css';
 
@@ -69,6 +72,8 @@ export default function Editor(): JSX.Element {
           <HorizontalRulePlugin />
           <TabIndentationPlugin />
           <CodeHighlightPlugin />
+          <TablePlugin />
+          <CollapsiblePlugin />
           {floatingAnchorElem && (
             <FloatingButtonConfigPlugin anchorElem={floatingAnchorElem} />
           )}

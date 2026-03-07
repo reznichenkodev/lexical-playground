@@ -1,10 +1,5 @@
 import type { JSX } from 'react';
 
-import {
-  $isCodeNode,
-  CODE_LANGUAGE_FRIENDLY_NAME_MAP,
-  getLanguageFriendlyName,
-} from '@lexical/code';
 import { $isLinkNode, TOGGLE_LINK_COMMAND } from '@lexical/link';
 import {
   $isListNode,
@@ -20,10 +15,15 @@ import {
   $isHeadingNode,
 } from '@lexical/rich-text';
 import { $setBlocksType } from '@lexical/selection';
-import { $findMatchingParent, mergeRegister } from '@lexical/utils';
+import { INSERT_TABLE_COMMAND } from '@lexical/table';
+import {
+  $findMatchingParent,
+  $insertNodeToNearestRoot,
+  mergeRegister,
+} from '@lexical/utils';
 import {
   $createParagraphNode,
-  $getNodeByKey,
+  $createTextNode,
   $getSelection,
   $isRangeSelection,
   $isRootOrShadowRoot,
@@ -32,7 +32,6 @@ import {
   COMMAND_PRIORITY_CRITICAL,
   FORMAT_ELEMENT_COMMAND,
   FORMAT_TEXT_COMMAND,
-  INSERT_PARAGRAPH_COMMAND,
   REDO_COMMAND,
   SELECTION_CHANGE_COMMAND,
   UNDO_COMMAND,
@@ -41,11 +40,14 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import * as React from 'react';
 
 import { $createButtonNode } from '../../nodes/ButtonNode/ButtonNode';
+import {
+  $createCollapsibleContainerNode,
+  $createCollapsibleContentNode,
+  $createCollapsibleTitleNode,
+} from '../../nodes/CollapsibleNode';
 import './index.css';
 
-const CODE_LANGUAGE_OPTIONS: [string, string][] = Object.entries(
-  CODE_LANGUAGE_FRIENDLY_NAME_MAP,
-);
+const TABLE_GRID_MAX = 8;
 
 type BlockType =
   | 'paragraph'
@@ -104,9 +106,48 @@ function ToolbarButton({
   );
 }
 
+function TableSizePicker({
+  onSelect,
+}: {
+  onSelect: (rows: number, cols: number) => void;
+}): JSX.Element {
+  const [hovered, setHovered] = useState({ row: 0, col: 0 });
+  return (
+    <div className='Toolbar__tablePicker'>
+      <div
+        className='Toolbar__tableGrid'
+        onMouseLeave={() => setHovered({ row: 0, col: 0 })}
+      >
+        {Array.from({ length: TABLE_GRID_MAX }, (_, r) =>
+          Array.from({ length: TABLE_GRID_MAX }, (_, c) => (
+            <div
+              key={`${r}-${c}`}
+              className={[
+                'Toolbar__tableGridCell',
+                r <= hovered.row && c <= hovered.col
+                  ? 'Toolbar__tableGridCell--selected'
+                  : '',
+              ].join(' ')}
+              onMouseEnter={() => setHovered({ row: r, col: c })}
+              onMouseDown={(e) => {
+                e.preventDefault();
+                onSelect(r + 1, c + 1);
+              }}
+            />
+          )),
+        )}
+      </div>
+      <div className='Toolbar__tableGridLabel'>
+        {hovered.row + 1} × {hovered.col + 1}
+      </div>
+    </div>
+  );
+}
+
 export default function ToolbarPlugin(): JSX.Element {
   const [editor] = useLexicalComposerContext();
   const toolbarRef = useRef<HTMLDivElement>(null);
+  const tablePickerRef = useRef<HTMLDivElement>(null);
 
   const [canUndo, setCanUndo] = useState(false);
   const [canRedo, setCanRedo] = useState(false);
@@ -117,6 +158,7 @@ export default function ToolbarPlugin(): JSX.Element {
   const [isStrikethrough, setIsStrikethrough] = useState(false);
   const [isCode, setIsCode] = useState(false);
   const [isLink, setIsLink] = useState(false);
+  const [showTablePicker, setShowTablePicker] = useState(false);
 
   const $updateToolbar = useCallback(() => {
     const selection = $getSelection();
@@ -229,6 +271,42 @@ export default function ToolbarPlugin(): JSX.Element {
         $setBlocksType(selection, () => $createHeadingNode(type));
         return;
       }
+    });
+  };
+
+  // Close table picker on outside click
+  useEffect(() => {
+    if (!showTablePicker) return;
+    const handler = (e: MouseEvent) => {
+      if (
+        tablePickerRef.current &&
+        !tablePickerRef.current.contains(e.target as Node)
+      ) {
+        setShowTablePicker(false);
+      }
+    };
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, [showTablePicker]);
+
+  const insertTable = (rows: number, cols: number) => {
+    editor.dispatchCommand(INSERT_TABLE_COMMAND, {
+      rows: String(rows),
+      columns: String(cols),
+    });
+    setShowTablePicker(false);
+  };
+
+  const insertCollapsible = () => {
+    editor.update(() => {
+      const container = $createCollapsibleContainerNode(true);
+      const title = $createCollapsibleTitleNode();
+      title.append($createTextNode(''));
+      const content = $createCollapsibleContentNode();
+      content.append($createParagraphNode());
+      container.append(title, content);
+      $insertNodeToNearestRoot(container);
+      title.selectEnd();
     });
   };
 
@@ -365,6 +443,29 @@ export default function ToolbarPlugin(): JSX.Element {
       </ToolbarButton>
 
       <Divider />
+
+      {/* Insert Table */}
+      <div className='Toolbar__tablePickerWrapper' ref={tablePickerRef}>
+        <button
+          type='button'
+          className='Toolbar__insertBtn'
+          title='Insert Table'
+          onClick={() => setShowTablePicker((v) => !v)}
+        >
+          + Table
+        </button>
+        {showTablePicker && <TableSizePicker onSelect={insertTable} />}
+      </div>
+
+      {/* Insert Collapsible */}
+      <button
+        type='button'
+        className='Toolbar__insertBtn'
+        title='Insert Collapsible'
+        onClick={insertCollapsible}
+      >
+        + Collapsible
+      </button>
 
       {/* Insert Button Node */}
       <button

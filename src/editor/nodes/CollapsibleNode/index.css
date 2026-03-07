@@ -1,0 +1,55 @@
+.Collapsible__container {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  margin: 8px 0;
+  overflow: hidden;
+}
+
+.Collapsible__title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  font-weight: 600;
+  background: #f9fafb;
+  min-height: 40px;
+  cursor: text;
+}
+
+.Collapsible__titleToggle {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 4px;
+  color: #6366f1;
+  font-size: 10px;
+  transition: background 0.15s;
+  user-select: none;
+}
+
+.Collapsible__titleToggle:hover {
+  background: #ede9fe;
+}
+
+.Collapsible__titleToggle::before {
+  content: '▶';
+  display: inline-block;
+  transition: transform 0.2s;
+}
+
+.Collapsible__container[data-open='true'] .Collapsible__titleToggle::before {
+  transform: rotate(90deg);
+}
+
+.Collapsible__content {
+  padding: 12px 14px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.Collapsible__container[data-open='false'] .Collapsible__content {
+  display: none;
+}

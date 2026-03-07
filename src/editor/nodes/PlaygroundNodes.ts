@@ -11,6 +11,11 @@ import { HeadingNode, QuoteNode } from '@lexical/rich-text';
 import { TableCellNode, TableNode, TableRowNode } from '@lexical/table';
 
 import { ButtonNode } from './ButtonNode/ButtonNode';
+import {
+  CollapsibleContainerNode,
+  CollapsibleContentNode,
+  CollapsibleTitleNode,
+} from './CollapsibleNode';
 
 const PlaygroundNodes: Array<Klass<LexicalNode>> = [
   HeadingNode,
@@ -30,6 +35,9 @@ const PlaygroundNodes: Array<Klass<LexicalNode>> = [
   MarkNode,
   // Custom nodes
   ButtonNode,
+  CollapsibleContainerNode,
+  CollapsibleTitleNode,
+  CollapsibleContentNode,
 ];
 
 export default PlaygroundNodes;
