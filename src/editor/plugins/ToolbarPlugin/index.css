@@ -134,3 +134,63 @@
   font-size: 0.75rem;
   color: #6b7280;
 }
+
+/* ---- Image insert popover ---- */
+.Toolbar__imagePickerWrapper {
+  position: relative;
+}
+
+.Toolbar__imagePopover {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  z-index: 100;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 240px;
+}
+
+.Toolbar__imageInput {
+  width: 100%;
+  height: 30px;
+  padding: 0 8px;
+  border: 1px solid #e5e7eb;
+  border-radius: 5px;
+  font-size: 0.82rem;
+  color: #374151;
+  outline: none;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+.Toolbar__imageInput:focus {
+  border-color: #6366f1;
+}
+
+.Toolbar__imageOr {
+  text-align: center;
+  font-size: 0.75rem;
+  color: #9ca3af;
+}
+
+.Toolbar__imageInsertBtn {
+  padding: 5px 10px;
+  background: #6366f1;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  height: 30px;
+  transition: background 0.12s;
+  font-family: inherit;
+}
+.Toolbar__imageInsertBtn:hover {
+  background: #4f46e5;
+}

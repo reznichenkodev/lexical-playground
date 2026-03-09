@@ -18,9 +18,11 @@ import PlaygroundNodes from './nodes/PlaygroundNodes';
 import EditorTheme from './themes/EditorTheme';
 import CollapsiblePlugin from './plugins/CollapsiblePlugin';
 import FloatingButtonConfigPlugin from './plugins/FloatingButtonConfigPlugin';
+import ImagePlugin from './plugins/ImagePlugin';
 import ToolbarPlugin from './plugins/ToolbarPlugin';
 
 import './nodes/CollapsibleNode/index.css';
+import './nodes/ImageNode/index.css';
 import './themes/EditorTheme.css';
 import './Editor.css';
 
@@ -74,6 +76,7 @@ export default function Editor(): JSX.Element {
           <CodeHighlightPlugin />
           <TablePlugin />
           <CollapsiblePlugin />
+          <ImagePlugin />
           {floatingAnchorElem && (
             <FloatingButtonConfigPlugin anchorElem={floatingAnchorElem} />
           )}

@@ -45,6 +45,8 @@ import {
   $createCollapsibleContentNode,
   $createCollapsibleTitleNode,
 } from '../../nodes/CollapsibleNode';
+import { ImagePayload } from '../../nodes/ImageNode';
+import { INSERT_IMAGE_COMMAND } from '../ImagePlugin';
 import './index.css';
 
 const TABLE_GRID_MAX = 8;
@@ -144,6 +146,64 @@ function TableSizePicker({
   );
 }
 
+function ImageInsertPopover({
+  onInsert,
+}: {
+  onInsert: (payload: ImagePayload) => void;
+}): JSX.Element {
+  const [url, setUrl] = React.useState('');
+  const fileInputRef = React.useRef<HTMLInputElement>(null);
+
+  const handleInsertUrl = () => {
+    const trimmed = url.trim();
+    if (trimmed) onInsert({ src: trimmed, alt: '' });
+  };
+
+  const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => onInsert({ src: reader.result as string, alt: file.name });
+    reader.readAsDataURL(file);
+  };
+
+  return (
+    <div className='Toolbar__imagePopover'>
+      <input
+        type='url'
+        className='Toolbar__imageInput'
+        placeholder='https://...'
+        value={url}
+        onChange={(e) => setUrl(e.target.value)}
+        onKeyDown={(e) => { if (e.key === 'Enter') handleInsertUrl(); }}
+        autoFocus
+      />
+      <button
+        type='button'
+        className='Toolbar__imageInsertBtn'
+        onMouseDown={(e) => { e.preventDefault(); handleInsertUrl(); }}
+      >
+        Insert URL
+      </button>
+      <div className='Toolbar__imageOr'>or</div>
+      <input
+        ref={fileInputRef}
+        type='file'
+        accept='image/*'
+        style={{ display: 'none' }}
+        onChange={handleFile}
+      />
+      <button
+        type='button'
+        className='Toolbar__imageInsertBtn'
+        onMouseDown={(e) => { e.preventDefault(); fileInputRef.current?.click(); }}
+      >
+        Upload file
+      </button>
+    </div>
+  );
+}
+
 export default function ToolbarPlugin(): JSX.Element {
   const [editor] = useLexicalComposerContext();
   const toolbarRef = useRef<HTMLDivElement>(null);
@@ -159,6 +219,8 @@ export default function ToolbarPlugin(): JSX.Element {
   const [isCode, setIsCode] = useState(false);
   const [isLink, setIsLink] = useState(false);
   const [showTablePicker, setShowTablePicker] = useState(false);
+  const [showImagePicker, setShowImagePicker] = useState(false);
+  const imagePickerRef = useRef<HTMLDivElement>(null);
 
   const $updateToolbar = useCallback(() => {
     const selection = $getSelection();
@@ -289,12 +351,32 @@ export default function ToolbarPlugin(): JSX.Element {
     return () => document.removeEventListener('mousedown', handler);
   }, [showTablePicker]);
 
+  // Close image picker on outside click
+  useEffect(() => {
+    if (!showImagePicker) return;
+    const handler = (e: MouseEvent) => {
+      if (
+        imagePickerRef.current &&
+        !imagePickerRef.current.contains(e.target as Node)
+      ) {
+        setShowImagePicker(false);
+      }
+    };
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, [showImagePicker]);
+
   const insertTable = (rows: number, cols: number) => {
     editor.dispatchCommand(INSERT_TABLE_COMMAND, {
       rows: String(rows),
       columns: String(cols),
     });
     setShowTablePicker(false);
+  };
+
+  const insertImage = (payload: ImagePayload) => {
+    editor.dispatchCommand(INSERT_IMAGE_COMMAND, payload);
+    setShowImagePicker(false);
   };
 
   const insertCollapsible = () => {
@@ -466,6 +548,19 @@ export default function ToolbarPlugin(): JSX.Element {
       >
         + Collapsible
       </button>
+
+      {/* Insert Image */}
+      <div className='Toolbar__imagePickerWrapper' ref={imagePickerRef}>
+        <button
+          type='button'
+          className='Toolbar__insertBtn'
+          title='Insert Image'
+          onClick={() => setShowImagePicker((v) => !v)}
+        >
+          + Image
+        </button>
+        {showImagePicker && <ImageInsertPopover onInsert={insertImage} />}
+      </div>
 
       {/* Insert Button Node */}
       <button

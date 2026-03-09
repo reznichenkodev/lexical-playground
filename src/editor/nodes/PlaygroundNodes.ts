@@ -16,6 +16,7 @@ import {
   CollapsibleContentNode,
   CollapsibleTitleNode,
 } from './CollapsibleNode';
+import { ImageNode } from './ImageNode';
 
 const PlaygroundNodes: Array<Klass<LexicalNode>> = [
   HeadingNode,
@@ -38,6 +39,7 @@ const PlaygroundNodes: Array<Klass<LexicalNode>> = [
   CollapsibleContainerNode,
   CollapsibleTitleNode,
   CollapsibleContentNode,
+  ImageNode,
 ];
 
 export default PlaygroundNodes;
