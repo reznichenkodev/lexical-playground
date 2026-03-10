@@ -7,6 +7,7 @@ import type {
 } from 'lexical';
 import { DecoratorNode } from 'lexical';
 import * as React from 'react';
+import s from './style.module.css';
 
 export interface ImagePayload {
   src: string;
@@ -78,7 +79,7 @@ export class ImageNode extends DecoratorNode<JSX.Element> {
 
   createDOM(): HTMLElement {
     const span = document.createElement('span');
-    span.className = 'ImageNode__wrapper';
+    span.className = s['ImageNode__wrapper'];
     return span;
   }
 
@@ -89,7 +90,7 @@ export class ImageNode extends DecoratorNode<JSX.Element> {
   decorate(): JSX.Element {
     return (
       <img
-        className='ImageNode__img'
+        className={s['ImageNode__img']}
         src={this.__src}
         alt={this.__alt}
         style={{

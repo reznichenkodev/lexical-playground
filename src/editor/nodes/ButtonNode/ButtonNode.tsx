@@ -17,7 +17,7 @@ import { useLexicalNodeSelection } from '@lexical/react/useLexicalNodeSelection'
 import * as React from 'react';
 import { Suspense } from 'react';
 
-import './ButtonNode.css';
+import s from './style.module.css';
 
 export type ButtonVariant =
   | 'primary'
@@ -71,11 +71,11 @@ function ButtonComponent({
   isSelected,
 }: ButtonComponentProps): JSX.Element {
   const classes = [
-    'ButtonNode__button',
-    `ButtonNode__button--${variant}`,
-    `ButtonNode__button--${size}`,
-    isSelected ? 'ButtonNode__button--selected' : '',
-    disabled ? 'ButtonNode__button--disabled' : '',
+    s['ButtonNode__button'],
+    s[`ButtonNode__button--${variant}`],
+    s[`ButtonNode__button--${size}`],
+    isSelected ? s['ButtonNode__button--selected'] : '',
+    disabled ? s['ButtonNode__button--disabled'] : '',
   ]
     .filter(Boolean)
     .join(' ');
@@ -225,7 +225,7 @@ export class ButtonNode extends DecoratorNode<JSX.Element> {
   // DecoratorNode required methods
   createDOM(_config: EditorConfig): HTMLElement {
     const span = document.createElement('span');
-    span.className = 'ButtonNode__wrapper';
+    span.className = s['ButtonNode__wrapper'];
     return span;
   }
 
@@ -296,7 +296,7 @@ function ButtonNodeDecorator({
       />
       <button
         type='button'
-        className='ButtonNode__configBtn'
+        className={s['ButtonNode__configBtn']}
         title='Configure button'
         // Prevent editor blur when clicking the control
         onMouseDown={(e) => e.preventDefault()}

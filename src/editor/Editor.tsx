@@ -21,10 +21,8 @@ import FloatingButtonConfigPlugin from './plugins/FloatingButtonConfigPlugin';
 import ImagePlugin from './plugins/ImagePlugin';
 import ToolbarPlugin from './plugins/ToolbarPlugin';
 
-import './nodes/CollapsibleNode/index.css';
-import './nodes/ImageNode/index.css';
 import './themes/EditorTheme.css';
-import './Editor.css';
+import s from './Editor.module.css';
 
 function CodeHighlightPlugin(): null {
   const [editor] = useLexicalComposerContext();
@@ -53,16 +51,16 @@ export default function Editor(): JSX.Element {
 
   return (
     <LexicalComposer initialConfig={initialConfig}>
-      <div className='Editor__container'>
+      <div className={s['Editor__container']}>
         <ToolbarPlugin />
-        <div className='Editor__inner' ref={onRef}>
+        <div className={s['Editor__inner']} ref={onRef}>
           <RichTextPlugin
             contentEditable={
               <ContentEditable
-                className='Editor__contentEditable'
+                className={s['Editor__contentEditable']}
                 aria-placeholder='Start typing...'
                 placeholder={
-                  <div className='Editor__placeholder'>Start typing...</div>
+                  <div className={s['Editor__placeholder']}>Start typing...</div>
                 }
               />
             }

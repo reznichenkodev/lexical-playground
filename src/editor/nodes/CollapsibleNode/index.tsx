@@ -6,6 +6,7 @@ import type {
 } from 'lexical';
 
 import { ElementNode } from 'lexical';
+import s from './style.module.css';
 
 // ===================== CollapsibleContainerNode =====================
 
@@ -32,7 +33,7 @@ export class CollapsibleContainerNode extends ElementNode {
 
   createDOM(): HTMLElement {
     const dom = document.createElement('div');
-    dom.classList.add('Collapsible__container');
+    dom.classList.add(s['Collapsible__container']);
     dom.dataset.open = String(this.__open);
     dom.dataset.nodeKey = this.__key;
     return dom;
@@ -94,10 +95,10 @@ export class CollapsibleTitleNode extends ElementNode {
 
   createDOM(): HTMLElement {
     const dom = document.createElement('div');
-    dom.classList.add('Collapsible__title');
+    dom.classList.add(s['Collapsible__title']);
 
     const icon = document.createElement('span');
-    icon.classList.add('Collapsible__titleToggle');
+    icon.classList.add(s['Collapsible__titleToggle']);
     icon.setAttribute('contenteditable', 'false');
     dom.append(icon);
 
@@ -144,7 +145,7 @@ export class CollapsibleContentNode extends ElementNode {
 
   createDOM(): HTMLElement {
     const dom = document.createElement('div');
-    dom.classList.add('Collapsible__content');
+    dom.classList.add(s['Collapsible__content']);
     return dom;
   }
 

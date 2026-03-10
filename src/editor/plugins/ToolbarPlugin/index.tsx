@@ -47,7 +47,7 @@ import {
 } from '../../nodes/CollapsibleNode';
 import { ImagePayload } from '../../nodes/ImageNode';
 import { INSERT_IMAGE_COMMAND } from '../ImagePlugin';
-import './index.css';
+import s from './style.module.css';
 
 const TABLE_GRID_MAX = 8;
 
@@ -75,7 +75,7 @@ const BLOCK_TYPE_LABELS: Record<BlockType, string> = {
 };
 
 function Divider(): JSX.Element {
-  return <div className='Toolbar__divider' />;
+  return <div className={s['Toolbar__divider']} />;
 }
 
 interface ToolbarButtonProps {
@@ -98,9 +98,10 @@ function ToolbarButton({
       type='button'
       title={title}
       disabled={disabled}
-      className={['Toolbar__btn', active ? 'Toolbar__btn--active' : ''].join(
-        ' ',
-      )}
+      className={[
+        s['Toolbar__btn'],
+        active ? s['Toolbar__btn--active'] : '',
+      ].join(' ')}
       onClick={onClick}
     >
       {children}
@@ -115,9 +116,9 @@ function TableSizePicker({
 }): JSX.Element {
   const [hovered, setHovered] = useState({ row: 0, col: 0 });
   return (
-    <div className='Toolbar__tablePicker'>
+    <div className={s['Toolbar__tablePicker']}>
       <div
-        className='Toolbar__tableGrid'
+        className={s['Toolbar__tableGrid']}
         onMouseLeave={() => setHovered({ row: 0, col: 0 })}
       >
         {Array.from({ length: TABLE_GRID_MAX }, (_, r) =>
@@ -125,9 +126,9 @@ function TableSizePicker({
             <div
               key={`${r}-${c}`}
               className={[
-                'Toolbar__tableGridCell',
+                s['Toolbar__tableGridCell'],
                 r <= hovered.row && c <= hovered.col
-                  ? 'Toolbar__tableGridCell--selected'
+                  ? s['Toolbar__tableGridCell--selected']
                   : '',
               ].join(' ')}
               onMouseEnter={() => setHovered({ row: r, col: c })}
@@ -139,7 +140,7 @@ function TableSizePicker({
           )),
         )}
       </div>
-      <div className='Toolbar__tableGridLabel'>
+      <div className={s['Toolbar__tableGridLabel']}>
         {hovered.row + 1} × {hovered.col + 1}
       </div>
     </div>
@@ -163,29 +164,35 @@ function ImageInsertPopover({
     const file = e.target.files?.[0];
     if (!file) return;
     const reader = new FileReader();
-    reader.onload = () => onInsert({ src: reader.result as string, alt: file.name });
+    reader.onload = () =>
+      onInsert({ src: reader.result as string, alt: file.name });
     reader.readAsDataURL(file);
   };
 
   return (
-    <div className='Toolbar__imagePopover'>
+    <div className={s['Toolbar__imagePopover']}>
       <input
         type='url'
-        className='Toolbar__imageInput'
+        className={s['Toolbar__imageInput']}
         placeholder='https://...'
         value={url}
         onChange={(e) => setUrl(e.target.value)}
-        onKeyDown={(e) => { if (e.key === 'Enter') handleInsertUrl(); }}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') handleInsertUrl();
+        }}
         autoFocus
       />
       <button
         type='button'
-        className='Toolbar__imageInsertBtn'
-        onMouseDown={(e) => { e.preventDefault(); handleInsertUrl(); }}
+        className={s['Toolbar__imageInsertBtn']}
+        onMouseDown={(e) => {
+          e.preventDefault();
+          handleInsertUrl();
+        }}
       >
         Insert URL
       </button>
-      <div className='Toolbar__imageOr'>or</div>
+      <div className={s['Toolbar__imageOr']}>or</div>
       <input
         ref={fileInputRef}
         type='file'
@@ -195,8 +202,11 @@ function ImageInsertPopover({
       />
       <button
         type='button'
-        className='Toolbar__imageInsertBtn'
-        onMouseDown={(e) => { e.preventDefault(); fileInputRef.current?.click(); }}
+        className={s['Toolbar__imageInsertBtn']}
+        onMouseDown={(e) => {
+          e.preventDefault();
+          fileInputRef.current?.click();
+        }}
       >
         Upload file
       </button>
@@ -411,7 +421,7 @@ export default function ToolbarPlugin(): JSX.Element {
   };
 
   return (
-    <div ref={toolbarRef} className='Toolbar'>
+    <div ref={toolbarRef} className={s['Toolbar']}>
       {/* Undo / Redo */}
       <ToolbarButton
         disabled={!canUndo}
@@ -432,7 +442,7 @@ export default function ToolbarPlugin(): JSX.Element {
 
       {/* Block type selector */}
       <select
-        className='Toolbar__select'
+        className={s['Toolbar__select']}
         value={blockType}
         onChange={(e) => formatBlock(e.target.value as BlockType)}
         title='Block type'
@@ -527,10 +537,10 @@ export default function ToolbarPlugin(): JSX.Element {
       <Divider />
 
       {/* Insert Table */}
-      <div className='Toolbar__tablePickerWrapper' ref={tablePickerRef}>
+      <div className={s['Toolbar__tablePickerWrapper']} ref={tablePickerRef}>
         <button
           type='button'
-          className='Toolbar__insertBtn'
+          className={s['Toolbar__insertBtn']}
           title='Insert Table'
           onClick={() => setShowTablePicker((v) => !v)}
         >
@@ -542,7 +552,7 @@ export default function ToolbarPlugin(): JSX.Element {
       {/* Insert Collapsible */}
       <button
         type='button'
-        className='Toolbar__insertBtn'
+        className={s['Toolbar__insertBtn']}
         title='Insert Collapsible'
         onClick={insertCollapsible}
       >
@@ -550,10 +560,10 @@ export default function ToolbarPlugin(): JSX.Element {
       </button>
 
       {/* Insert Image */}
-      <div className='Toolbar__imagePickerWrapper' ref={imagePickerRef}>
+      <div className={s['Toolbar__imagePickerWrapper']} ref={imagePickerRef}>
         <button
           type='button'
-          className='Toolbar__insertBtn'
+          className={s['Toolbar__insertBtn']}
           title='Insert Image'
           onClick={() => setShowImagePicker((v) => !v)}
         >
@@ -565,7 +575,7 @@ export default function ToolbarPlugin(): JSX.Element {
       {/* Insert Button Node */}
       <button
         type='button'
-        className='Toolbar__insertBtn'
+        className={s['Toolbar__insertBtn']}
         title='Insert Button'
         onClick={insertButton}
       >

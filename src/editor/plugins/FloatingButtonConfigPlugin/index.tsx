@@ -23,7 +23,7 @@ import * as React from 'react';
 import { createPortal } from 'react-dom';
 
 import { $isButtonNode } from '../../nodes/ButtonNode/ButtonNode';
-import './index.css';
+import s from './style.module.css';
 
 const VARIANTS: ButtonVariant[] = [
   'primary',
@@ -151,15 +151,15 @@ function FloatingConfigPanel({
   return (
     <div
       ref={panelRef}
-      className='FloatingButtonConfig__panel'
+      className={s['FloatingButtonConfig__panel']}
       role='dialog'
       aria-label='Button configuration'
     >
-      <div className='FloatingButtonConfig__header'>
-        <span className='FloatingButtonConfig__title'>Configure Button</span>
+      <div className={s['FloatingButtonConfig__header']}>
+        <span className={s['FloatingButtonConfig__title']}>Configure Button</span>
         <button
           type='button'
-          className='FloatingButtonConfig__close'
+          className={s['FloatingButtonConfig__close']}
           onClick={onClose}
           aria-label='Close'
         >
@@ -167,13 +167,13 @@ function FloatingConfigPanel({
         </button>
       </div>
 
-      <div className='FloatingButtonConfig__body'>
+      <div className={s['FloatingButtonConfig__body']}>
         {/* Label */}
-        <div className='FloatingButtonConfig__field'>
-          <label className='FloatingButtonConfig__label'>Label</label>
+        <div className={s['FloatingButtonConfig__field']}>
+          <label className={s['FloatingButtonConfig__label']}>Label</label>
           <input
             type='text'
-            className='FloatingButtonConfig__input'
+            className={s['FloatingButtonConfig__input']}
             value={label}
             onChange={(e) => setLabel(e.target.value)}
             onBlur={applyChanges}
@@ -182,18 +182,18 @@ function FloatingConfigPanel({
         </div>
 
         {/* Variant */}
-        <div className='FloatingButtonConfig__field'>
-          <label className='FloatingButtonConfig__label'>Variant</label>
-          <div className='FloatingButtonConfig__variantGrid'>
+        <div className={s['FloatingButtonConfig__field']}>
+          <label className={s['FloatingButtonConfig__label']}>Variant</label>
+          <div className={s['FloatingButtonConfig__variantGrid']}>
             {VARIANTS.map((v) => (
               <button
                 key={v}
                 type='button'
                 className={[
-                  'FloatingButtonConfig__variantBtn',
-                  `FloatingButtonConfig__variantBtn--${v}`,
+                  s['FloatingButtonConfig__variantBtn'],
+                  s[`FloatingButtonConfig__variantBtn--${v}`],
                   variant === v
-                    ? 'FloatingButtonConfig__variantBtn--active'
+                    ? s['FloatingButtonConfig__variantBtn--active']
                     : '',
                 ].join(' ')}
                 onClick={() => setVariant(v)}
@@ -205,31 +205,31 @@ function FloatingConfigPanel({
         </div>
 
         {/* Size */}
-        <div className='FloatingButtonConfig__field'>
-          <label className='FloatingButtonConfig__label'>Size</label>
-          <div className='FloatingButtonConfig__sizeGroup'>
-            {SIZES.map((s) => (
+        <div className={s['FloatingButtonConfig__field']}>
+          <label className={s['FloatingButtonConfig__label']}>Size</label>
+          <div className={s['FloatingButtonConfig__sizeGroup']}>
+            {SIZES.map((sz) => (
               <button
-                key={s}
+                key={sz}
                 type='button'
                 className={[
-                  'FloatingButtonConfig__sizeBtn',
-                  size === s ? 'FloatingButtonConfig__sizeBtn--active' : '',
+                  s['FloatingButtonConfig__sizeBtn'],
+                  size === sz ? s['FloatingButtonConfig__sizeBtn--active'] : '',
                 ].join(' ')}
-                onClick={() => setSize(s)}
+                onClick={() => setSize(sz)}
               >
-                {s.toUpperCase()}
+                {sz.toUpperCase()}
               </button>
             ))}
           </div>
         </div>
 
         {/* Link */}
-        <div className='FloatingButtonConfig__field'>
-          <label className='FloatingButtonConfig__label'>Link (optional)</label>
+        <div className={s['FloatingButtonConfig__field']}>
+          <label className={s['FloatingButtonConfig__label']}>Link (optional)</label>
           <input
             type='url'
-            className='FloatingButtonConfig__input'
+            className={s['FloatingButtonConfig__input']}
             value={href}
             onChange={(e) => setHref(e.target.value)}
             onBlur={applyChanges}
@@ -238,19 +238,19 @@ function FloatingConfigPanel({
         </div>
 
         {/* Disabled toggle */}
-        <div className='FloatingButtonConfig__field FloatingButtonConfig__field--row'>
-          <label className='FloatingButtonConfig__label'>Disabled</label>
+        <div className={[s['FloatingButtonConfig__field'], s['FloatingButtonConfig__field--row']].join(' ')}>
+          <label className={s['FloatingButtonConfig__label']}>Disabled</label>
           <button
             type='button'
             role='switch'
             aria-checked={disabled}
             className={[
-              'FloatingButtonConfig__toggle',
-              disabled ? 'FloatingButtonConfig__toggle--on' : '',
+              s['FloatingButtonConfig__toggle'],
+              disabled ? s['FloatingButtonConfig__toggle--on'] : '',
             ].join(' ')}
             onClick={() => setDisabled((d) => !d)}
           >
-            <span className='FloatingButtonConfig__toggleThumb' />
+            <span className={s['FloatingButtonConfig__toggleThumb']} />
           </button>
         </div>
       </div>
