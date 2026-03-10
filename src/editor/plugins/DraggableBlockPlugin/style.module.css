@@ -1,0 +1,45 @@
+.DraggableBlock__menu {
+  border-radius: 4px;
+  cursor: grab;
+  opacity: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
+  will-change: transform;
+  padding: 2px;
+  transition: opacity 0.15s, background 0.1s;
+}
+
+.DraggableBlock__menu:hover,
+.DraggableBlock__menu:active {
+  background: #f3f4f6;
+  opacity: 1;
+}
+
+.DraggableBlock__menu:active {
+  cursor: grabbing;
+}
+
+.DraggableBlock__icon {
+  font-size: 15px;
+  color: #9ca3af;
+  line-height: 1;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+}
+
+.DraggableBlock__targetLine {
+  pointer-events: none;
+  background: #6366f1;
+  height: 3px;
+  border-radius: 2px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  will-change: transform;
+}

@@ -1,0 +1,104 @@
+.FloatingToolbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 4px 6px;
+  background: #1f2937;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  pointer-events: none;
+  transition: opacity 0.12s;
+}
+
+.FloatingToolbar__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  height: 28px;
+  padding: 0 6px;
+  border: none;
+  border-radius: 5px;
+  background: transparent;
+  color: #e5e7eb;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.1s, color 0.1s;
+}
+
+.FloatingToolbar__btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.FloatingToolbar__btn--active {
+  background: rgba(99, 102, 241, 0.5);
+  color: #fff;
+}
+
+.FloatingToolbar__divider {
+  width: 1px;
+  height: 18px;
+  background: rgba(255, 255, 255, 0.15);
+  margin: 0 2px;
+  flex-shrink: 0;
+}
+
+/* Link input row */
+.FloatingToolbar__linkRow {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.FloatingToolbar__linkInput {
+  width: 200px;
+  height: 26px;
+  padding: 0 8px;
+  border: none;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #f9fafb;
+  font-size: 12px;
+  outline: none;
+}
+
+.FloatingToolbar__linkInput::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.FloatingToolbar__confirmBtn,
+.FloatingToolbar__cancelBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border: none;
+  border-radius: 5px;
+  font-size: 13px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.FloatingToolbar__confirmBtn {
+  background: #6366f1;
+  color: #fff;
+}
+
+.FloatingToolbar__confirmBtn:hover {
+  background: #4f46e5;
+}
+
+.FloatingToolbar__cancelBtn {
+  background: rgba(255, 255, 255, 0.1);
+  color: #e5e7eb;
+}
+
+.FloatingToolbar__cancelBtn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}

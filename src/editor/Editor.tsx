@@ -17,7 +17,9 @@ import { useCallback, useEffect, useState } from 'react';
 import PlaygroundNodes from './nodes/PlaygroundNodes';
 import EditorTheme from './themes/EditorTheme';
 import CollapsiblePlugin from './plugins/CollapsiblePlugin';
+import DraggableBlockPlugin from './plugins/DraggableBlockPlugin';
 import FloatingButtonConfigPlugin from './plugins/FloatingButtonConfigPlugin';
+import FloatingToolbarPlugin from './plugins/FloatingToolbarPlugin';
 import ImagePlugin from './plugins/ImagePlugin';
 import ToolbarPlugin from './plugins/ToolbarPlugin';
 
@@ -75,8 +77,12 @@ export default function Editor(): JSX.Element {
           <TablePlugin />
           <CollapsiblePlugin />
           <ImagePlugin />
+          <FloatingToolbarPlugin />
           {floatingAnchorElem && (
-            <FloatingButtonConfigPlugin anchorElem={floatingAnchorElem} />
+            <>
+              <DraggableBlockPlugin anchorElem={floatingAnchorElem} />
+              <FloatingButtonConfigPlugin anchorElem={floatingAnchorElem} />
+            </>
           )}
         </div>
       </div>
