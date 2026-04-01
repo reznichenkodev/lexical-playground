@@ -1,5 +1,7 @@
 import type { JSX } from 'react';
 import type {
+  DOMConversionMap,
+  DOMConversionOutput,
   LexicalEditor,
   LexicalNode,
   LexicalCommand,
@@ -98,6 +100,109 @@ export function extractTextFromState(json: string | null): string {
   }
 }
 
+/**
+ * Wraps plain text in a minimal serialized Lexical paragraph so that
+ * pasted cell content is restored into the nested editor correctly.
+ */
+function createTextEditorState(text: string): string {
+  return JSON.stringify({
+    root: {
+      children: [
+        {
+          children: text
+            ? [{ detail: 0, format: 0, mode: 'normal', style: '', text, type: 'text', version: 1 }]
+            : [],
+          direction: text ? 'ltr' : null,
+          format: '',
+          indent: 0,
+          type: 'paragraph',
+          version: 1,
+          textFormat: 0,
+          textStyle: '',
+        },
+      ],
+      direction: text ? 'ltr' : null,
+      format: '',
+      indent: 0,
+      type: 'root',
+      version: 1,
+    },
+  });
+}
+
+/**
+ * Converts a pasted / imported `<table>` DOM element into a CustomTableNode.
+ *
+ * Parsing rules:
+ * - Headers come from `<thead> > <tr> > <th>` (or the first `<tr>` if no thead).
+ * - Body rows come from `<tbody> > <tr> > <td>`.
+ * - `colspan` attributes are preserved.
+ * - Each cell's text content is stored as a minimal Lexical paragraph so the
+ *   nested editor can restore it correctly.
+ */
+function $convertTableElement(element: HTMLElement): DOMConversionOutput {
+  const headers: string[] = [];
+  const rows: TableCellData[][] = [];
+
+  // --- Headers ---
+  const thead = element.querySelector('thead');
+  if (thead) {
+    const headerRow = thead.querySelector('tr');
+    if (headerRow) {
+      headerRow.querySelectorAll('th').forEach((th) => {
+        headers.push(th.textContent?.trim() ?? '');
+      });
+    }
+  }
+
+  // Fallback: first <tr> whose cells are all <th>
+  if (headers.length === 0) {
+    const firstRow = element.querySelector('tr');
+    if (firstRow) {
+      const ths = firstRow.querySelectorAll('th');
+      if (ths.length > 0) {
+        ths.forEach((th) => headers.push(th.textContent?.trim() ?? ''));
+      }
+    }
+  }
+
+  // --- Body rows ---
+  const tbody = element.querySelector('tbody') ?? element;
+  let skippedFirstRow = false;
+
+  tbody.querySelectorAll('tr').forEach((tr) => {
+    // When tbody === element the first <tr> may be the header row we already read
+    if (tbody === element && !skippedFirstRow && headers.length > 0) {
+      skippedFirstRow = true;
+      return;
+    }
+
+    const row: TableCellData[] = [];
+    tr.querySelectorAll('td').forEach((td) => {
+      const colspan = Math.max(1, parseInt(td.getAttribute('colspan') ?? '1', 10));
+      const text = td.textContent?.trim() ?? '';
+      row.push({
+        id: generateId(),
+        editorState: text ? createTextEditorState(text) : null,
+        colspan,
+      });
+    });
+
+    if (row.length > 0) rows.push(row);
+  });
+
+  // If no headers were found, generate them from the column count
+  if (headers.length === 0) {
+    const colCount =
+      rows.length > 0
+        ? Math.max(...rows.map((r) => r.reduce((s, c) => s + c.colspan, 0)))
+        : 0;
+    for (let i = 0; i < colCount; i++) headers.push(`Header ${i + 1}`);
+  }
+
+  return { node: $createCustomTableNode({ headers, rows }) };
+}
+
 // ---- Commands ----
 
 export const OPEN_TABLE_CONFIG_COMMAND: LexicalCommand<TableConfigCommandPayload> =
@@ -128,6 +233,16 @@ export class CustomTableNode extends DecoratorNode<JSX.Element> {
     super(key);
     this.__headers = headers;
     this.__rows = rows;
+  }
+
+  static importDOM(): DOMConversionMap | null {
+    return {
+      table: () => ({
+        conversion: $convertTableElement,
+        // Priority 2 overrides @lexical/table's default handler (priority 1)
+        priority: 2,
+      }),
+    };
   }
 
   static importJSON(serialized: SerializedCustomTableNode): CustomTableNode {
