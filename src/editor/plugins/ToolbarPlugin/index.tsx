@@ -15,7 +15,6 @@ import {
   $isHeadingNode,
 } from '@lexical/rich-text';
 import { $setBlocksType } from '@lexical/selection';
-import { INSERT_TABLE_COMMAND } from '@lexical/table';
 import {
   $findMatchingParent,
   $insertNodeToNearestRoot,
@@ -45,6 +44,10 @@ import {
   $createCollapsibleContentNode,
   $createCollapsibleTitleNode,
 } from '../../nodes/CollapsibleNode';
+import {
+  createEmptyTable,
+  INSERT_CUSTOM_TABLE_COMMAND,
+} from '../../nodes/CustomTableNode';
 import { ImagePayload } from '../../nodes/ImageNode';
 import { INSERT_IMAGE_COMMAND } from '../ImagePlugin';
 import s from './style.module.css';
@@ -377,10 +380,10 @@ export default function ToolbarPlugin(): JSX.Element {
   }, [showImagePicker]);
 
   const insertTable = (rows: number, cols: number) => {
-    editor.dispatchCommand(INSERT_TABLE_COMMAND, {
-      rows: String(rows),
-      columns: String(cols),
-    });
+    editor.dispatchCommand(
+      INSERT_CUSTOM_TABLE_COMMAND,
+      createEmptyTable(cols, rows),
+    );
     setShowTablePicker(false);
   };
 

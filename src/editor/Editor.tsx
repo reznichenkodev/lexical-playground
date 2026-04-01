@@ -17,8 +17,11 @@ import { useCallback, useEffect, useState } from 'react';
 import PlaygroundNodes from './nodes/PlaygroundNodes';
 import EditorTheme from './themes/EditorTheme';
 import CollapsiblePlugin from './plugins/CollapsiblePlugin';
+import CustomTablePlugin from './plugins/CustomTablePlugin';
 import DraggableBlockPlugin from './plugins/DraggableBlockPlugin';
 import FloatingButtonConfigPlugin from './plugins/FloatingButtonConfigPlugin';
+import FloatingImageConfigPlugin from './plugins/FloatingImageConfigPlugin';
+import FloatingTableConfigPlugin from './plugins/FloatingTableConfigPlugin';
 import FloatingToolbarPlugin from './plugins/FloatingToolbarPlugin';
 import ImagePlugin from './plugins/ImagePlugin';
 import ToolbarPlugin from './plugins/ToolbarPlugin';
@@ -62,7 +65,9 @@ export default function Editor(): JSX.Element {
                 className={s['Editor__contentEditable']}
                 aria-placeholder='Start typing...'
                 placeholder={
-                  <div className={s['Editor__placeholder']}>Start typing...</div>
+                  <div className={s['Editor__placeholder']}>
+                    Start typing...
+                  </div>
                 }
               />
             }
@@ -77,11 +82,14 @@ export default function Editor(): JSX.Element {
           <TablePlugin />
           <CollapsiblePlugin />
           <ImagePlugin />
+          <CustomTablePlugin />
           <FloatingToolbarPlugin />
           {floatingAnchorElem && (
             <>
               <DraggableBlockPlugin anchorElem={floatingAnchorElem} />
               <FloatingButtonConfigPlugin anchorElem={floatingAnchorElem} />
+              <FloatingImageConfigPlugin anchorElem={floatingAnchorElem} />
+              <FloatingTableConfigPlugin anchorElem={floatingAnchorElem} />
             </>
           )}
         </div>

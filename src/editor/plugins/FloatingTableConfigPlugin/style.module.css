@@ -1,0 +1,116 @@
+.FloatingTableConfig__panel {
+  position: absolute;
+  z-index: 1000;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08);
+  width: 290px;
+  opacity: 0;
+  transform: scale(0.96);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  pointer-events: all;
+}
+
+.FloatingTableConfig__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px 10px;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.FloatingTableConfig__title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #111827;
+  letter-spacing: 0.01em;
+}
+
+.FloatingTableConfig__close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #9ca3af;
+  font-size: 1.2rem;
+  line-height: 1;
+  padding: 2px 6px;
+  border-radius: 4px;
+  transition: background 0.1s, color 0.1s;
+}
+.FloatingTableConfig__close:hover {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.FloatingTableConfig__body {
+  padding: 10px 14px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.FloatingTableConfig__section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.FloatingTableConfig__sectionLabel {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.FloatingTableConfig__hint {
+  margin: 0;
+  font-size: 0.75rem;
+  color: #9ca3af;
+  line-height: 1.4;
+}
+
+.FloatingTableConfig__btnGroup {
+  display: flex;
+  gap: 6px;
+}
+
+.FloatingTableConfig__actionBtn {
+  flex: 1;
+  padding: 6px 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  background: #fff;
+  color: #374151;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.12s;
+}
+.FloatingTableConfig__actionBtn:hover:not(:disabled) {
+  border-color: #6366f1;
+  color: #6366f1;
+  background: #f5f3ff;
+}
+.FloatingTableConfig__actionBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.FloatingTableConfig__actionBtn--primary {
+  background: #6366f1;
+  border-color: #6366f1;
+  color: #fff;
+}
+.FloatingTableConfig__actionBtn--primary:hover:not(:disabled) {
+  background: #4f46e5;
+  border-color: #4f46e5;
+  color: #fff;
+}
+.FloatingTableConfig__actionBtn--primary:disabled {
+  background: #c7d2fe;
+  border-color: #c7d2fe;
+  color: #fff;
+}

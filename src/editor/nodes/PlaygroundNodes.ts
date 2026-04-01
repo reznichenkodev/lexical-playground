@@ -16,6 +16,7 @@ import {
   CollapsibleContentNode,
   CollapsibleTitleNode,
 } from './CollapsibleNode';
+import { CustomTableNode } from './CustomTableNode';
 import { ImageNode } from './ImageNode';
 
 const PlaygroundNodes: Array<Klass<LexicalNode>> = [
@@ -39,6 +40,7 @@ const PlaygroundNodes: Array<Klass<LexicalNode>> = [
   CollapsibleContainerNode,
   CollapsibleTitleNode,
   CollapsibleContentNode,
+  CustomTableNode,
   ImageNode,
 ];
 

@@ -1,0 +1,127 @@
+.CustomTable__root {
+  display: block;
+  margin: 12px 0;
+}
+
+.CustomTable__container {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.CustomTable__tableWrapper {
+  overflow-x: auto;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+
+.CustomTable__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+  color: #111827;
+}
+
+/* ---- Header row ---- */
+
+.CustomTable__th {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  padding: 0;
+  font-weight: 600;
+  text-align: left;
+  min-width: 120px;
+}
+
+/* Plain text input for header labels */
+.CustomTable__cellInput {
+  display: block;
+  width: 100%;
+  padding: 8px 10px;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 0.875rem;
+  font-weight: 600;
+  font-family: inherit;
+  color: #374151;
+  box-sizing: border-box;
+}
+
+.CustomTable__cellInput::placeholder {
+  color: #d1d5db;
+  font-weight: 400;
+}
+
+/* ---- Body cells ---- */
+
+.CustomTable__td {
+  border: 1px solid #e5e7eb;
+  padding: 0;
+  background: #fff;
+  vertical-align: top;
+  min-width: 120px;
+  min-height: 40px;
+  transition: background 0.1s;
+}
+
+.CustomTable__td--selected {
+  background: #ede9fe !important;
+  outline: 2px solid #6366f1;
+  outline-offset: -2px;
+}
+
+/* ---- Nested Lexical editor inside each cell ---- */
+
+.CustomTable__cellEditable {
+  display: block;
+  min-height: 40px;
+  padding: 8px 10px;
+  outline: none;
+  font-size: 0.875rem;
+  font-family: inherit;
+  color: #111827;
+  line-height: 1.5;
+  box-sizing: border-box;
+  cursor: text;
+}
+
+.CustomTable__cellEditable:focus {
+  background: #fafafa;
+}
+
+/* ---- Config button ---- */
+
+.CustomTable__configBtn {
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid #e5e7eb;
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 0.8rem;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  transition: opacity 0.15s;
+  padding: 0;
+}
+
+.CustomTable__container:hover .CustomTable__configBtn {
+  opacity: 1;
+}
+
+/* ---- Selection hint ---- */
+
+.CustomTable__selectionHint {
+  margin-top: 6px;
+  font-size: 0.72rem;
+  color: #6366f1;
+  font-weight: 500;
+}

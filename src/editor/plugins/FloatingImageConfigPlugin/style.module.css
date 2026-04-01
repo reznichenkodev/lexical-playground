@@ -1,0 +1,117 @@
+.FloatingImageConfig__panel {
+  position: absolute;
+  z-index: 1000;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08);
+  width: 280px;
+  opacity: 0;
+  transform: scale(0.96);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  pointer-events: all;
+}
+
+.FloatingImageConfig__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px 10px;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.FloatingImageConfig__title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #111827;
+  letter-spacing: 0.01em;
+}
+
+.FloatingImageConfig__close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #9ca3af;
+  font-size: 1.2rem;
+  line-height: 1;
+  padding: 2px 6px;
+  border-radius: 4px;
+  transition: background 0.1s, color 0.1s;
+}
+.FloatingImageConfig__close:hover {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.FloatingImageConfig__body {
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.FloatingImageConfig__field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex: 1;
+}
+
+.FloatingImageConfig__row {
+  display: flex;
+  gap: 10px;
+}
+
+.FloatingImageConfig__label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.FloatingImageConfig__input {
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 0.875rem;
+  color: #111827;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  font-family: inherit;
+  width: 100%;
+  box-sizing: border-box;
+}
+.FloatingImageConfig__input:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+/* ---- Preset Buttons ---- */
+.FloatingImageConfig__presetGroup {
+  display: flex;
+  gap: 6px;
+}
+
+.FloatingImageConfig__presetBtn {
+  flex: 1;
+  padding: 6px 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  background: #fff;
+  color: #6b7280;
+  transition: all 0.12s;
+  font-family: inherit;
+}
+.FloatingImageConfig__presetBtn:hover {
+  border-color: #6366f1;
+  color: #6366f1;
+}
+.FloatingImageConfig__presetBtn--active {
+  background: #6366f1;
+  border-color: #6366f1;
+  color: #fff;
+}
