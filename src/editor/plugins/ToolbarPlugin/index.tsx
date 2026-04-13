@@ -10,10 +10,12 @@ import {
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { INSERT_HORIZONTAL_RULE_COMMAND } from '@lexical/react/LexicalHorizontalRuleNode';
 import {
-  $createHeadingNode,
   $createQuoteNode,
   $isHeadingNode,
 } from '@lexical/rich-text';
+import {
+  $createAnchorHeadingNode,
+} from '../../nodes/AnchorHeadingNode';
 import { $setBlocksType } from '@lexical/selection';
 import {
   $findMatchingParent,
@@ -343,7 +345,7 @@ export default function ToolbarPlugin(): JSX.Element {
         return;
       }
       if (type === 'h1' || type === 'h2' || type === 'h3' || type === 'h4') {
-        $setBlocksType(selection, () => $createHeadingNode(type));
+        $setBlocksType(selection, () => $createAnchorHeadingNode(type));
         return;
       }
     });

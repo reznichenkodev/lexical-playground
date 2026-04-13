@@ -1,0 +1,64 @@
+.FloatingAnchor__panel {
+  position: absolute;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.10), 0 1px 4px rgba(0, 0, 0, 0.06);
+  padding: 3px 6px 3px 4px;
+  opacity: 0;
+  transform: scale(0.96);
+  transition: opacity 0.12s ease, transform 0.12s ease;
+  pointer-events: all;
+  white-space: nowrap;
+}
+
+.FloatingAnchor__hash {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #6366f1;
+  padding: 0 2px 0 4px;
+  user-select: none;
+}
+
+.FloatingAnchor__input {
+  border: none;
+  outline: none;
+  font-size: 0.82rem;
+  font-family: 'Menlo', 'Consolas', monospace;
+  color: #374151;
+  background: transparent;
+  width: 140px;
+  padding: 2px 4px;
+}
+
+.FloatingAnchor__input::placeholder {
+  color: #d1d5db;
+}
+
+.FloatingAnchor__iconBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #9ca3af;
+  font-size: 0.85rem;
+  line-height: 1;
+  padding: 2px 4px;
+  border-radius: 4px;
+  transition: background 0.1s, color 0.1s;
+}
+
+.FloatingAnchor__iconBtn:hover {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.FloatingAnchor__iconBtn--success {
+  color: #22c55e;
+}

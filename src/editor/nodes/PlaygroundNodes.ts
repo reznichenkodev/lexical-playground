@@ -7,9 +7,10 @@ import { ListItemNode, ListNode } from '@lexical/list';
 import { MarkNode } from '@lexical/mark';
 import { OverflowNode } from '@lexical/overflow';
 import { HorizontalRuleNode } from '@lexical/react/LexicalHorizontalRuleNode';
-import { HeadingNode, QuoteNode } from '@lexical/rich-text';
+import { QuoteNode } from '@lexical/rich-text';
 import { TableCellNode, TableNode, TableRowNode } from '@lexical/table';
 
+import { AnchorHeadingNode } from './AnchorHeadingNode';
 import { ButtonNode } from './ButtonNode/ButtonNode';
 import {
   CollapsibleContainerNode,
@@ -19,8 +20,10 @@ import {
 import { CustomTableNode } from './CustomTableNode';
 import { ImageNode } from './ImageNode';
 
+// AnchorHeadingNode uses type 'heading' — registers directly without replace wrapper.
+// The toolbar must use $createAnchorHeadingNode instead of $createHeadingNode.
 const PlaygroundNodes: Array<Klass<LexicalNode>> = [
-  HeadingNode,
+  AnchorHeadingNode,
   ListNode,
   ListItemNode,
   QuoteNode,
