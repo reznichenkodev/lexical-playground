@@ -1,0 +1,40 @@
+.VideoNode__wrapper {
+  display: inline-block;
+  line-height: 0;
+  margin: 8px 0;
+  position: relative;
+}
+
+.VideoNode__video {
+  display: block;
+  max-width: 100%;
+  border-radius: 6px;
+  cursor: default;
+  transition: outline 0.1s;
+}
+
+.VideoNode__video--selected {
+  outline: 2px solid #6366f1;
+  outline-offset: 2px;
+}
+
+.VideoNode__configBtn {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid #e5e7eb;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  line-height: 1;
+  padding: 3px 5px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+  opacity: 0;
+  transition: opacity 0.15s;
+  pointer-events: all;
+}
+
+.VideoNode__wrapper:hover .VideoNode__configBtn {
+  opacity: 1;
+}

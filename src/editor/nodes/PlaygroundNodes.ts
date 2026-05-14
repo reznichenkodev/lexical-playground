@@ -19,6 +19,7 @@ import {
 } from './CollapsibleNode';
 import { CustomTableNode } from './CustomTableNode';
 import { ImageNode } from './ImageNode';
+import { VideoNode } from './VideoNode';
 
 // AnchorHeadingNode uses type 'heading' — registers directly without replace wrapper.
 // The toolbar must use $createAnchorHeadingNode instead of $createHeadingNode.
@@ -45,6 +46,7 @@ const PlaygroundNodes: Array<Klass<LexicalNode>> = [
   CollapsibleContentNode,
   CustomTableNode,
   ImageNode,
+  VideoNode,
 ];
 
 export default PlaygroundNodes;

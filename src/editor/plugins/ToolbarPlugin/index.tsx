@@ -51,7 +51,9 @@ import {
   INSERT_CUSTOM_TABLE_COMMAND,
 } from '../../nodes/CustomTableNode';
 import { ImagePayload } from '../../nodes/ImageNode';
+import { VideoPayload } from '../../nodes/VideoNode';
 import { INSERT_IMAGE_COMMAND } from '../ImagePlugin';
+import { INSERT_VIDEO_COMMAND } from '../VideoPlugin';
 import s from './style.module.css';
 
 const TABLE_GRID_MAX = 8;
@@ -219,6 +221,72 @@ function ImageInsertPopover({
   );
 }
 
+function VideoInsertPopover({
+  onInsert,
+}: {
+  onInsert: (payload: VideoPayload) => void;
+}): JSX.Element {
+  const [url, setUrl] = React.useState('');
+  const fileInputRef = React.useRef<HTMLInputElement>(null);
+
+  const handleInsertUrl = () => {
+    const trimmed = url.trim();
+    if (trimmed) onInsert({ src: trimmed });
+  };
+
+  const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => onInsert({ src: reader.result as string });
+    reader.readAsDataURL(file);
+  };
+
+  return (
+    <div className={s['Toolbar__imagePopover']}>
+      <input
+        type='url'
+        className={s['Toolbar__imageInput']}
+        placeholder='https://...'
+        value={url}
+        onChange={(e) => setUrl(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') handleInsertUrl();
+        }}
+        autoFocus
+      />
+      <button
+        type='button'
+        className={s['Toolbar__imageInsertBtn']}
+        onMouseDown={(e) => {
+          e.preventDefault();
+          handleInsertUrl();
+        }}
+      >
+        Insert URL
+      </button>
+      <div className={s['Toolbar__imageOr']}>or</div>
+      <input
+        ref={fileInputRef}
+        type='file'
+        accept='video/*'
+        style={{ display: 'none' }}
+        onChange={handleFile}
+      />
+      <button
+        type='button'
+        className={s['Toolbar__imageInsertBtn']}
+        onMouseDown={(e) => {
+          e.preventDefault();
+          fileInputRef.current?.click();
+        }}
+      >
+        Upload file
+      </button>
+    </div>
+  );
+}
+
 export default function ToolbarPlugin(): JSX.Element {
   const [editor] = useLexicalComposerContext();
   const toolbarRef = useRef<HTMLDivElement>(null);
@@ -236,6 +304,8 @@ export default function ToolbarPlugin(): JSX.Element {
   const [showTablePicker, setShowTablePicker] = useState(false);
   const [showImagePicker, setShowImagePicker] = useState(false);
   const imagePickerRef = useRef<HTMLDivElement>(null);
+  const [showVideoPicker, setShowVideoPicker] = useState(false);
+  const videoPickerRef = useRef<HTMLDivElement>(null);
 
   const $updateToolbar = useCallback(() => {
     const selection = $getSelection();
@@ -381,6 +451,21 @@ export default function ToolbarPlugin(): JSX.Element {
     return () => document.removeEventListener('mousedown', handler);
   }, [showImagePicker]);
 
+  // Close video picker on outside click
+  useEffect(() => {
+    if (!showVideoPicker) return;
+    const handler = (e: MouseEvent) => {
+      if (
+        videoPickerRef.current &&
+        !videoPickerRef.current.contains(e.target as Node)
+      ) {
+        setShowVideoPicker(false);
+      }
+    };
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, [showVideoPicker]);
+
   const insertTable = (rows: number, cols: number) => {
     editor.dispatchCommand(
       INSERT_CUSTOM_TABLE_COMMAND,
@@ -392,6 +477,11 @@ export default function ToolbarPlugin(): JSX.Element {
   const insertImage = (payload: ImagePayload) => {
     editor.dispatchCommand(INSERT_IMAGE_COMMAND, payload);
     setShowImagePicker(false);
+  };
+
+  const insertVideo = (payload: VideoPayload) => {
+    editor.dispatchCommand(INSERT_VIDEO_COMMAND, payload);
+    setShowVideoPicker(false);
   };
 
   const insertCollapsible = () => {
@@ -575,6 +665,19 @@ export default function ToolbarPlugin(): JSX.Element {
           + Image
         </button>
         {showImagePicker && <ImageInsertPopover onInsert={insertImage} />}
+      </div>
+
+      {/* Insert Video */}
+      <div className={s['Toolbar__imagePickerWrapper']} ref={videoPickerRef}>
+        <button
+          type='button'
+          className={s['Toolbar__insertBtn']}
+          title='Insert Video'
+          onClick={() => setShowVideoPicker((v) => !v)}
+        >
+          + Video
+        </button>
+        {showVideoPicker && <VideoInsertPopover onInsert={insertVideo} />}
       </div>
 
       {/* Insert Button Node */}
